@@ -4,8 +4,15 @@ using System.Collections;
 public class Patrol : MonoBehaviour
     {
     public Transform[] patrolPoints;
-
+    public float moveSpeed;
     private int currentPoint;
+
+    public GameObject playerObject;
+
+    public bool wantRotate;
+
+    private Vector3 _direction;
+    private Quaternion _lookDirection;
 
     void Start()
         {
@@ -19,5 +26,10 @@ public class Patrol : MonoBehaviour
             {
             currentPoint++;
             }
+        if (currentPoint >= patrolPoints.Length)
+            {
+            currentPoint = 0;
+            }
+        transform.position = Vector3.MoveTowards(transform.position, patrolPoints[currentPoint].position, moveSpeed * Time.deltaTime);
         }
     }
