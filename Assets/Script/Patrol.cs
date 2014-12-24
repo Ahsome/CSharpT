@@ -9,11 +9,6 @@ public class Patrol : MonoBehaviour
 
     public GameObject playerObject;
 
-    public bool wantRotate;
-
-    private Vector3 _direction;
-    private Quaternion _lookDirection;
-
     void Start()
         {
         transform.position = patrolPoints[0].position;

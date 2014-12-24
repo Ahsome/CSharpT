@@ -1,39 +1,53 @@
 using UnityEngine;
 using System.Collections;
 
-public class PlayerMovement : MonoBehaviour
-    {
-    public float moveSpeed;
-    public float maxSpeed = 5f;
+public class PlayerMovement : MonoBehaviour {
 
-    public GameObject deathParticles;
+	public float moveSpeed;
+	public GameObject deathParticles;
 
-    private Vector3 spawn;
+	private float maxSpeed = 10f;
+	private Vector3 input;
 
-    private Vector3 input;
+	private Vector3 spawn;
 
-    void Start()
-        {
-        spawn = transform.position;
-        }
 
-    void Update()
-        {
-        input = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
+	// Use this for initialization
+	void Start () {
+		spawn = transform.position;
+	}
 
-        if (rigidbody.velocity.magnitude < maxSpeed)
-            {
-            rigidbody.AddForce(input * moveSpeed);
-            
-            }
-        }
 
-    void OnCollisionStay(Collision other)
-        {
-        if (other.transform.tag == "Enemy")
-            {
-            Instantiate(deathParticles, transform.position, Quaternion.identity);
-            transform.position = spawn;
-            }
-        }
-    }
+
+	void Update () {
+		input = new Vector3(Input.GetAxisRaw ("Horizontal"), 0, Input.GetAxisRaw ("Vertical"));
+		if(rigidbody.velocity.magnitude < maxSpeed)
+		{
+			rigidbody.AddRelativeForce(input * moveSpeed);
+		}
+        if (transform.position.y <= -2)
+            Die();
+	}
+
+	void OnCollisionEnter(Collision other)
+	{
+		if (other.transform.tag == "Enemy")
+		{
+			Die ();
+		}
+	}
+
+	void OnTriggerEnter(Collider other)
+	{
+		if (other.transform.tag == "Goal")
+		{
+			GameManager.CompleteLevel();
+		}
+	}
+
+	void Die()
+	{
+		Instantiate(deathParticles, transform.position, Quaternion.identity);
+		transform.position = spawn;
+	}
+}

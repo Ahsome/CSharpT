@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Script\Destroy.cs" />
+     <Compile Include="Assets\Script\GameManager.cs" />
      <Compile Include="Assets\Script\Patrol.cs" />
      <Compile Include="Assets\Script\PlayerMovement.cs" />
  <Reference Include="UnityEngine.UI">
