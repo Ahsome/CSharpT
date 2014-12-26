@@ -18,13 +18,11 @@ public class Patrol : MonoBehaviour
     void Update()
         {
         if (transform.position == patrolPoints[currentPoint].position)
-            {
             currentPoint++;
-            }
+
         if (currentPoint >= patrolPoints.Length)
-            {
             currentPoint = 0;
-            }
+
         transform.position = Vector3.MoveTowards(transform.position, patrolPoints[currentPoint].position, moveSpeed * Time.deltaTime);
         }
     }
